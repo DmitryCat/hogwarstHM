@@ -21,19 +21,19 @@ public class FacultyController {
         return facultyService.get(id);
     }
 
-    @PostMapping
+    @PostMapping("{id}")
     public Faculty add(@RequestBody Faculty faculty) {
         return facultyService.add(faculty);
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     public Faculty update(@PathVariable Long id, @RequestBody Faculty faculty) {
         return facultyService.update(id, faculty);
     }
 
-    @DeleteMapping
-    public Faculty delete(@PathVariable Long id) {
-        return facultyService.delete(id);
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Long id) {
+         facultyService.delete(id);
     }
 
     @GetMapping
