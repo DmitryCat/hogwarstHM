@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
             studentFromDb.setName(student.getName());
             studentFromDb.setAge(student.getAge());
             return studentRepository.save(studentFromDb);
-        }).orElse(null);
+        }).orElseThrow();
     }
 
     @Override
@@ -62,6 +62,6 @@ public class StudentServiceImpl implements StudentService {
     public Faculty getFaculty(Long id) {
         return studentRepository.findById(id)
                 .map(Student::getFaculty)
-                .orElse(null);
+                .orElseThrow();
     }
 }

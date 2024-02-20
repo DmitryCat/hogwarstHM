@@ -17,12 +17,12 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("{id}")
+    @GetMapping
     public Faculty get(@PathVariable Long id) {
         return facultyService.get(id);
     }
 
-    @PostMapping("{id}")
+    @PostMapping
     public Faculty add(@RequestBody Faculty faculty) {
         return facultyService.add(faculty);
     }

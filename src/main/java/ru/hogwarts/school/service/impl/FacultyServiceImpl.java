@@ -35,7 +35,7 @@ public class FacultyServiceImpl implements FacultyService {
             facultyFromDb.setName(faculty.getName());
             facultyFromDb.setColor(faculty.getColor());
             return facultyRepository.save(facultyFromDb);
-        }).orElse(null);
+        }).orElseThrow();
     }
 
     @Override
@@ -57,6 +57,6 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public List<Student> getStudents(Long id) {
-        return facultyRepository.findById(id).map(Faculty::getStudents).orElse(null);
+        return facultyRepository.findById(id).map(Faculty::getStudents).orElseThrow();
     }
 }
