@@ -17,7 +17,7 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     public Faculty get(@PathVariable Long id) {
         return facultyService.get(id);
     }
