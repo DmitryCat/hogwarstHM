@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -79,6 +76,18 @@ public class FacultyControllerIntegrationTest {
         Assertions.assertEquals(actualFaculty.getId(), faculty.getId());
         Assertions.assertEquals(actualFaculty.getName(), faculty.getName());
         Assertions.assertEquals(actualFaculty.getColor(), faculty.getColor());
+
+    }
+    @Test
+    public void shouldDeleteFaculty() {
+        Faculty faculty = new Faculty("Dima", "green");
+        facultyRepository.save(faculty);
+
+        ResponseEntity<Faculty> facultyResponseEntity = restTemplate.exchange
+                ("http://localhost:" + port + "/faculties/" + faculty.getId(),HttpMethod.DELETE, null, Faculty.class);
+        Assertions.assertNotNull(facultyResponseEntity);
+        assertEquals(facultyResponseEntity.getStatusCode(), HttpStatusCode.valueOf(200));
+        org.assertj.core.api.Assertions.assertThat(facultyRepository.findById(faculty.getId())).isNotPresent();
 
     }
 }
