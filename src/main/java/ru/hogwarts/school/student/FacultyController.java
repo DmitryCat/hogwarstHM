@@ -22,7 +22,7 @@ public class FacultyController {
         return facultyService.get(id);
     }
 
-    @PostMapping("{id}")
+    @PostMapping
     public Faculty add(@RequestBody Faculty faculty) {
         return facultyService.add(faculty);
     }

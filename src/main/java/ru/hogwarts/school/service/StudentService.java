@@ -19,4 +19,5 @@ public interface StudentService {
     List<Student> getByAgeBetween(int ageFrom, int ageTo);
 
     Faculty getFaculty(Long id);
+
 }
