@@ -66,9 +66,8 @@ public class StudentControllerWebNvcTest {
         ResultActions perform = mockMvc.perform(put("/students/{id}", studentId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student)));
-        perform
-                .andExpect(jsonPath("$.name").value(student.getName()))
-                .andExpect(jsonPath("$.age").value(student.getAge()));
+        perform.andExpect(jsonPath("$.name").value(student.getName()));
+        perform.andExpect(jsonPath("$.age").value(student.getAge()));
     }
 
 }
