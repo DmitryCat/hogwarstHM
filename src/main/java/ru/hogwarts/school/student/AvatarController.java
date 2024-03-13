@@ -15,6 +15,8 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("avatars")
@@ -62,5 +64,13 @@ public class AvatarController {
             is.transferTo(os);
         }
 
+    }
+
+    @GetMapping("sum")
+    public int getSum() {
+        int sum = IntStream.rangeClosed(1, 1_000_000)
+                .parallel()
+                .sum();
+        return sum;
     }
 }

@@ -18,4 +18,6 @@ public interface FacultyService {
     List<Faculty> getByNameOrColor(String name, String color);
 
     List<Student> getStudents(Long id);
+    String getLongest();
+
 }

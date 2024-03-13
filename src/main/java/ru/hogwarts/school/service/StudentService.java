@@ -20,9 +20,14 @@ public interface StudentService {
 
     Faculty getFaculty(Long id);
 
-    public int getStudentCount();
+    int getStudentCount();
 
-    public int getAverageAge();
+    int getAverageAge();
 
-    public List<Student> getLastFive();
+    List<Student> getLastFive();
+
+    List<String> getBeginsWithA();
+
+    Double getsAverageAge();
+
 }
