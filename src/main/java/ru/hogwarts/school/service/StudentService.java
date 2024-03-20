@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.hogwarts.school.repository.model.Faculty;
 import ru.hogwarts.school.repository.model.Student;
 
@@ -30,4 +31,7 @@ public interface StudentService {
 
     Double getsAverageAge();
 
-}
+    void printParallel();
+
+    void printSynchronized();
+    }

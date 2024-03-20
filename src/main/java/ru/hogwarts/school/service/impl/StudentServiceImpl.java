@@ -7,7 +7,6 @@ import ru.hogwarts.school.repository.model.Faculty;
 import ru.hogwarts.school.repository.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -99,7 +98,7 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .map(Student::getName)
                 .map(String::toUpperCase)
-                .filter(it->it.startsWith("A"))
+                .filter(it -> it.startsWith("A"))
                 .collect(Collectors.toList());
     }
 
@@ -111,5 +110,47 @@ public class StudentServiceImpl implements StudentService {
                 .average()
                 .orElse(0.0)
                 ;
+    }
+
+    @Override
+    public void printParallel() {
+        List<String> names = studentRepository.findAll()
+                .stream()
+                .map(Student::getName)
+                .toList();
+        System.out.println(names.get(0));
+        System.out.println(names.get(1));
+
+        new Thread(() -> {
+            System.out.println(names.get(3));
+            System.out.println(names.get(4));
+        }).start();
+        new Thread(() -> {
+            System.out.println(names.get(5));
+            System.out.println(names.get(6));
+        }).start();
+
+    }
+
+    @Override
+    public synchronized void printSynchronized() {
+        List<String> names = studentRepository.findAll()
+                .stream()
+                .map(Student::getName)
+                .toList();
+        System.out.println(names.get(0));
+        System.out.println(names.get(1));
+
+        Thread thread1 = new Thread(() -> {
+            System.out.println(names.get(2));
+            System.out.println(names.get(3));
+        });
+        thread1.start();
+
+        Thread thread2 = new Thread(() -> {
+            System.out.println(names.get(4));
+            System.out.println(names.get(5));
+        });
+        thread2.start();
     }
 }
