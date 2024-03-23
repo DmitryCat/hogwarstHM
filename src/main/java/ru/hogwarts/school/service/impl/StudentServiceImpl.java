@@ -7,6 +7,7 @@ import ru.hogwarts.school.repository.model.Faculty;
 import ru.hogwarts.school.repository.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -122,12 +123,12 @@ public class StudentServiceImpl implements StudentService {
         System.out.println(names.get(1));
 
         new Thread(() -> {
+            System.out.println(names.get(2));
             System.out.println(names.get(3));
-            System.out.println(names.get(4));
         }).start();
         new Thread(() -> {
+            System.out.println(names.get(4));
             System.out.println(names.get(5));
-            System.out.println(names.get(6));
         }).start();
 
     }
@@ -138,19 +139,24 @@ public class StudentServiceImpl implements StudentService {
                 .stream()
                 .map(Student::getName)
                 .toList();
-        System.out.println(names.get(0));
-        System.out.println(names.get(1));
+        System.out.println(Thread.currentThread().getName() + ": " + names.get(0));
+        System.out.println(Thread.currentThread().getName() + ": " + names.get(1));
 
         Thread thread1 = new Thread(() -> {
-            System.out.println(names.get(2));
-            System.out.println(names.get(3));
+            synchronized (this) {
+                System.out.println(Thread.currentThread().getName() + ": " + names.get(2));
+                System.out.println(Thread.currentThread().getName() + ": " + names.get(3));
+            }
         });
-        thread1.start();
-
         Thread thread2 = new Thread(() -> {
-            System.out.println(names.get(4));
-            System.out.println(names.get(5));
+            synchronized (this) {
+                System.out.println(Thread.currentThread().getName() + ": " + names.get(4));
+                System.out.println(Thread.currentThread().getName() + ": " + names.get(5));
+            }
         });
+
+        thread1.start();
         thread2.start();
+
     }
 }
